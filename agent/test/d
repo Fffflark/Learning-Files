@@ -1,0 +1,12 @@
+public class java_example {
+    public static int addTwoNumbers(int a, int b) {
+        int result = a + b;
+        System.out.println(a + " + " + b + " = " + result);
+        return result;
+    }
+    
+    public static void main(String[] args) {
+        addTwoNumbers(30, 40);
+        System.out.println();
+    }
+}

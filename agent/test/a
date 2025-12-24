@@ -1,0 +1,16 @@
+def hello_world():
+    print("Hello World from Python!")
+    return "Hello World"
+
+def add_two_numbers(a, b):
+    result = a + b
+    print(f"{a} + {b} = {result}")
+    return result
+
+def main():
+    hello_world()
+    add_two_numbers(5, 7)
+    print()
+
+if __name__ == "__main__":
+    main()
