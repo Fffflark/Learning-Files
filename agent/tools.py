@@ -1,8 +1,11 @@
 # tool function
 import os
 from pathlib import Path
+from langchain.tools import tool
 
 base_dir = Path("./agent")
+
+@tool
 def read_file(name:str) -> str:
     """Return file content. If not exist, return error message."""
     print(f"read file {name}")
@@ -13,6 +16,7 @@ def read_file(name:str) -> str:
     except Exception as e:
         return f"An error occurred: {e}"
 
+@tool
 def list_file() -> list[str]:
     print("list file")
     file_list: list[Any] = []
@@ -21,6 +25,7 @@ def list_file() -> list[str]:
             file_list.append(str(item.relative_to(base_dir)))
     return file_list
 
+@tool
 def rename_file(name:str,new_name:str) -> str:
     print(f"rename {name} to {new_name}")
     try:

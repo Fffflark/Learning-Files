@@ -1,32 +1,26 @@
 import os
 from dotenv import load_dotenv
-from pydantic_ai import Agent
-from pydantic_ai.providers.openai import OpenAIProvider
-from pydantic_ai.models.openai import OpenAIModel
+from langchain.agent import create_agent
+from langchain_openai import ChatOpenAI
 import tools
 from typing import NoReturn
-from openai import AsyncOpenAI
 
 
 load_dotenv()
 
 api_key = os.getenv("SILICONFLOW_API_KEY")
 
-client = AsyncOpenAI(
+
+
+model = ChatOpenAI(
+    model = 'Qwen/Qwen3-8B',
     api_key=api_key,
     base_url="https://api.siliconflow.cn/v1"
 )
 
-provider = OpenAIProvider(openai_client=client)
-
-model = OpenAIModel(
-    'Qwen/Qwen3-8B',
-    provider=provider
-)
-
 system_prompt = "You are an experienced programmer"
 
-agent = Agent(
+agent = create_agent(
     model,
     system_prompt = system_prompt,
     tools = [tools.read_file,tools.list_file,tools.rename_file]
@@ -38,9 +32,11 @@ def main() -> NoReturn:
         user_input: str = input("Input: (input byebye to kill it)")
         if user_input == "byebye":
             break
-        resp: AgentRunResult[str] = agent.run_sync(user_input,message_history=history)
-        history = list(resp.all_messages())
-        print(resp.output)
+        message = history + [user_input]
+        agent_input = {"message":message}
+        resp: AgentRunResult[str] = agent.invoke(agent_input)
+        history = resp.get("messages",[])
+        print(history[-1])
         
 if __name__ == "__main__":
     main()
