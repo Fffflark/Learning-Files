@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from langchain.agent import create_agent
+from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
 import tools
 from typing import NoReturn
@@ -30,13 +30,14 @@ def main() -> NoReturn:
     history: list[Any] = []
     while True:
         user_input: str = input("Input: (input byebye to kill it)")
-        if user_input == "byebye":
+        if "byebye" in user_input.lower():
             break
-        message = history + [user_input]
-        agent_input = {"message":message}
+        messages:list[Any] = history + [{"role": "user", "content": user_input}]
+        agent_input = {"messages": messages}
         resp: AgentRunResult[str] = agent.invoke(agent_input)
-        history = resp.get("messages",[])
-        print(history[-1])
+        history: str = resp.get("messages",[])
+        first_sentence: str =history[-1].content
+        print(first_sentence)
         
 if __name__ == "__main__":
     main()

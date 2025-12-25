@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from langchain.tools import tool
 
-base_dir = Path("./agent")
+base_dir = Path("./test")
 
 @tool
 def read_file(name:str) -> str:
@@ -18,6 +18,7 @@ def read_file(name:str) -> str:
 
 @tool
 def list_file() -> list[str]:
+    """List the relative dirs for all the file"""
     print("list file")
     file_list: list[Any] = []
     for item in base_dir.rglob("*"):
@@ -27,6 +28,7 @@ def list_file() -> list[str]:
 
 @tool
 def rename_file(name:str,new_name:str) -> str:
+    """Rename original file with new name"""
     print(f"rename {name} to {new_name}")
     try:
         new_path: Path = base_dir/new_name
