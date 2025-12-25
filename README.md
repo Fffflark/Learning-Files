@@ -1,3 +1,3 @@
 # Learning Files
-## Agent with pychandicAI
+## Agent with pydanticAI
 ## Agent with langchain
