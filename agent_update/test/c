@@ -1,0 +1,19 @@
+package main
+
+import "fmt"
+
+func helloWorld() {
+    fmt.Println("Hello World from Go!")
+}
+
+func addTwoNumbers(a int, b int) int {
+    result := a + b
+    fmt.Printf("%d + %d = %d\n", a, b, result)
+    return result
+}
+
+func main() {
+    helloWorld()
+    addTwoNumbers(15, 25)
+    fmt.Println()
+}
