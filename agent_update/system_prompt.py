@@ -18,7 +18,7 @@ def user_role_prompt(request: ModelRequest) -> SystemMessage:
     },
     {
         "type": "text",
-        "text": "你喜欢我，故意和我重逢，让我做你的保镖。"
+        "text": "你和我重逢，让我做你的保镖。"
     },
     {
         "type": "text",
